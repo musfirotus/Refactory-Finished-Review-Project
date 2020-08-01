@@ -53,4 +53,15 @@ program
         await listTodo();
     })
 
+    // Hapus todo list
+    // How to run : node index.js todo del <id>
+    .command("todo del", "Hapus data todo list")
+    .argument("<id>", "Id yang ingin dihapus")
+    .action(async ({ args }) => {
+        await Todo.destroy({
+            where: { id: args.id }
+        });
+        await listTodo();
+    })
+
 program.run()
