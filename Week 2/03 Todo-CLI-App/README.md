@@ -1,11 +1,26 @@
 # Todo-CLI-App
 ## Third Party Installation
-### @caporal/core
-### mysql
-### mysql2
-### prompt-sync
-### sequelize
-### sequelize-cli
+   - @caporal/core
+     ```
+     https://caporal.io/
+     ```
+   - mysql
+     ```
+     https://www.npmjs.com/package/mysql
+     ```
+   - mysql2
+     ```
+     https://www.npmjs.com/package/mysql2
+     ```
+   - prompt-sync
+     ```
+     https://www.npmjs.com/package/prompt-sync
+     ```
+   - sequelize
+     ```
+     https://sequelize.org/
+     ```
+   - sequelize-cli
 ## Directory
    - config :
       - config.json
