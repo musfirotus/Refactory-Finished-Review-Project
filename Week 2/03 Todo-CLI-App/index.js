@@ -2,6 +2,7 @@ const { Op } = require('sequelize')
 const { program } = require('@caporal/core')
 const { Todo, sequelize } = require('./models');
 const db = require('./config/db')
+const prompt = require('prompt-sync')({sigint: true});
 
 program.version("1.0.0").description("ToDoList-CLI-APP");
 
@@ -35,7 +36,7 @@ program
     .command("todo add", "Tambah todo list")
     .argument("<item>", "list yang ingin ditambahkan")
     .action(async ({ args }) => {
-        await Todo.create({ item: args.item, cek: "Undone" });
+        await Todo.create({ item: args.item, cek: "Undone" }, error);
         await listTodo();
     })
 
@@ -60,12 +61,30 @@ program
     .action(async ({ args }) => {
         await Todo.destroy({
             where: { id: args.id }
-        });
+        }, error);
         await listTodo();
     })
 
     // Hapus semua data todo list
     // How to run : node index.js todo clear
+    .command("todo clear", "Hapus semua todo list")
+    .action(async () => {
+        const answer = prompt('Apakah Anda yakin menghapus semua todo list? (y/N) : ');
+        if (answer == 'y' || answer == 'Y') {
+            await Todo.destroy({
+                where: {},
+                truncate: true
+            }, error);
+            console.log('Data berhasil dihapus!');
+            await listTodo();
+        } else if(answer == 'n' || answer == 'N') {
+            console.log('Batal menghapus!');
+            await listTodo();
+        } else {
+            console.log(`Error : ${error}`);
+            mongoose.disconnect();
+        }
+    })
 
     // Edit todo list menjadi 'Done'
     // How to run : node index.js todo done <id>
@@ -74,7 +93,7 @@ program
     .action(async ({ args }) => {
         await Todo.update({ cek: 'Done' }, {
             where: { id: args.id }
-        });
+        }, error);
         await listTodo();
     })
 
@@ -85,7 +104,7 @@ program
     .action(async ({ args }) => {
         await Todo.update({ cek: "Undone" }, {
             where: { id: args.id }
-        });
+        }, error);
         await listTodo();
     })
 
