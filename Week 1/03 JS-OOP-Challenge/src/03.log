@@ -1,0 +1,86 @@
+var http = require('http');
+var util = require('util');
+var os = require('os');
+var syslog = require('syslog-client');
+
+
+var hostName = os.hostname();
+if (!hostName) {
+  hostName = 'localhost';
+}
+
+
+dot = hostName.indexOf('.');
+if (dot > 0) {
+  hostName = hostName.substring(0, dot);
+}
+console.log('Logging using host name %s', hostName);
+
+
+var client = syslog.createClient('YOUR-SYSLOG-SERVER-IP-ADDRESS-NOT-HOST-NAME', {
+  syslogHostname: hostName,
+  port: YOUR-SYSLO-SERVER-PORT,
+  transport: syslog.Transport.Tcp,
+});
+client.on('error', function(err) {
+  console.error('Error from syslog network: %s', err);
+});
+
+
+var options = {
+    facility: syslog.Facility.Daemon,
+    severity: syslog.Severity.Critical
+};
+
+
+function writeLog(req, resp) {
+  var msg = '';
+  req.setEncoding('utf8');
+  req.on('data', function(chunk) {
+    msg += chunk;
+  });
+  req.on('end', function() {
+    client.log(msg, options, function(err) {
+      if (err) {
+        writeError(resp, 500, util.format('Syslog error: %s', err));
+      } else {
+        resp.writeHead(200, {
+          'content-type': 'text/plain',
+        });
+        resp.end('ok');
+      }
+    });
+  });
+}
+
+
+function handleRequest(req, resp) {
+  if (req.url === '/log') {
+    if (req.method === 'POST') {
+      writeLog(req, resp);
+    } else {
+      writeError(resp, 405, 'Invalid method');
+    }
+  } else {
+    writeError(resp, 404, 'URI not found');
+  }
+}
+
+
+function writeError(resp, code, msg) {
+  resp.writeHead(code, {
+    'content-type': 'text/plain',
+  });
+  resp.end(msg);
+}
+
+
+var svr = http.createServer(handleRequest);
+
+
+var port = process.env.PORT || 11000;
+
+
+svr.listen(port, function() {
+  console.log('Listening on %d', port);
+});
