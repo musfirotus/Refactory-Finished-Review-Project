@@ -1,0 +1,21 @@
+{
+	"name": "testing-challenge",
+	"version": "1.0.0",
+	"description": "this is for testing challenge",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest",
+		"start": "node app.js"
+	},
+	"keywords": [
+		"node"
+	],
+	"author": "Musfirotus",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^8.2.0"
+	},
+	"devDependencies": {
+		"jest": "^26.1.0"
+	}
+}

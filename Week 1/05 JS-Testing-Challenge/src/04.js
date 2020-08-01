@@ -1,0 +1,1 @@
+module.exports = yr => !((yr % 4) || (!(yr % 100) && (yr % 400)));

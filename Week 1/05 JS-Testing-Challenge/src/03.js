@@ -1,0 +1,1 @@
+module.exports = mtk => mtk * 1024;
