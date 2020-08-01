@@ -64,4 +64,18 @@ program
         await listTodo();
     })
 
+    // Hapus semua data todo list
+    // How to run : node index.js todo clear
+
+    // Edit todo list menjadi 'Done'
+    // How to run : node index.js todo done <id>
+    .command("todo done", "Edit todo list menjadi 'Done'")
+    .argument("<id>", "Id yang ingin diubah")
+    .action(async ({ args }) => {
+        await Todo.update({ cek: 'Done' }, {
+            where: { id: args.id }
+        });
+        await listTodo();
+    })
+
 program.run()
