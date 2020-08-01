@@ -1,25 +1,18 @@
 {
-  "name": "todo-cli-app",
+  "name": "demo-sequelize",
   "version": "1.0.0",
-  "description": "Todo List App",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/musfirotus/Todo-CLI-App.git"
-  },
   "author": "Musfirotus",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/musfirotus/Todo-CLI-App/issues"
-  },
-  "homepage": "https://github.com/musfirotus/Todo-CLI-App#readme",
   "dependencies": {
     "@caporal/core": "^2.0.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
+    "prompt-sync": "^4.2.0",
     "sequelize": "^6.3.3"
   },
   "devDependencies": {

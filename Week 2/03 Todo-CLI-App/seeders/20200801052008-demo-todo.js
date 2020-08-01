@@ -1,15 +1,16 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Todos', [{
-      item: 'Doe',
-      status: 'uncompleted',
+      item: 'Sarapan',
+      cek: 'Undone',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
   },
-  down: (queryInterface, Sequelize) => {
+
+  down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Todos', null, {});
   }
 };

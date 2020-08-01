@@ -1,14 +1,9 @@
 const { Sequelize } = require('sequelize');
+const log = () => { console.log('Connected!\n') }
+const db = new Sequelize('todolist', 'root', '200801', {
+  host: 'localhost',
+  dialect: 'mysql',
+  logging: log()
+});
 
-const koneksi = new Sequelize('todo', 'root', '200801', {
-    host: 'localhost',
-    dialect: 'mysql'
-  });
-
-(async () => {
-    koneksi.authenticate()
-        .then(() => console.log('Database connected.'))
-        .catch(err => console.log('Koneksi Eror : ' + err))
-})()
-
-module.exports = koneksi;
+module.exports = db;

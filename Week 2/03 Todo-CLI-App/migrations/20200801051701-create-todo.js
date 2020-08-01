@@ -11,7 +11,7 @@ module.exports = {
       item: {
         type: Sequelize.STRING
       },
-      status: {
+      cek: {
         type: Sequelize.STRING
       },
       createdAt: {

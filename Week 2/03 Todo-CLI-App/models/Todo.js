@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Todo.init({
     item: DataTypes.STRING,
-    status: DataTypes.STRING
+    cek: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Todo',
