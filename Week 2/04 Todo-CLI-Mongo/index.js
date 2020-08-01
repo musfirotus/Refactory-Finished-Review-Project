@@ -86,6 +86,7 @@ program
             await listTodo();
         } else {
             console.log(`Error : ${error}`);
+            mongoose.disconnect();
         }
     })
 
