@@ -35,7 +35,7 @@ program
     .command("todo add", "Tambah todo list")
     .argument("<item>", "list yang ingin ditambahkan")
     .action(async ({ args }) => {
-        await Todo.create({ item: args.item, cek:"" });
+        await Todo.create({ item: args.item, cek: "Undone" });
         await listTodo();
     })
 
@@ -73,6 +73,17 @@ program
     .argument("<id>", "Id yang ingin diubah")
     .action(async ({ args }) => {
         await Todo.update({ cek: 'Done' }, {
+            where: { id: args.id }
+        });
+        await listTodo();
+    })
+
+    // Edit todo list menjadi 'Undone'
+    // How to run : node index.js todo undone <id>
+    .command("todo undone", "Edit todo list menjadi 'Undone'")
+    .argument("<id>", "Id yang ingin diubah")
+    .action(async ({ args }) => {
+        await Todo.update({ cek: "Undone" }, {
             where: { id: args.id }
         });
         await listTodo();
