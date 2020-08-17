@@ -1,0 +1,18 @@
+extends layout.pug
+
+block content
+    .col-12
+        h1 Edit #{todo.name}
+    .col-12
+        form(action='/users' method="POST" enctype="multipart/form-data")
+            label Task
+            input(type='text' value=todo.name class="form-control mb-3" name="name")
+            label Deskripsi
+            input(type='text' value=todo.description class="form-control mb-3" name="description")
+            input(type="hidden" value=todo._id name="id")
+            .form-group
+              img(src=`/images/uploads/${todo.imageFile===undefined?"error":todo.imageFile.filename}`).image
+              .label
+                label(for="exampleInputEmail1") #{todo.imageFile===undefined?"Tdk ada gambar":todo.imageFile.originalname}
+              input.form-control(type="file" name="images")
+            button(type="submit" class="btn btn-primary") Kirim

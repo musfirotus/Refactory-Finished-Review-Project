@@ -1,0 +1,53 @@
+extends layout.pug
+
+block content
+  .col-12
+    h1 Home
+    hr
+    h1 Tambah Todo List
+  .col-12
+    form(action='/' method="POST")
+      .row
+        .col
+          input(id = 'name' type='text' class="form-control mb-3" name="name" placeholder="Task")
+        .col
+          input(id='des' type='text' class="form-control mb-3" name="description" placeholder="Description")
+      .row
+        button(type="submit" class="btn btn-primary") Send
+    br
+    //- // read all task
+    table(class="table table-dark")
+        thead
+            tr
+                th No.
+                th Task
+                th Deskripsi
+                th Image
+                th Status
+                th Ubah Status
+                th Action
+        tbody
+        if(todo)
+            each _, a in todo  
+                tr
+                    td #{a+1}
+                    td=todo[a].name
+                    td=todo[a].description
+                    td
+                      img(src="./images/"+todo[a].image, alt="image", style="width:100%")
+                    if(todo[a].status == false)
+                        th="Undone"
+                        th
+                          a(class="btn btn-success" href=`/done/${todo[a]._id}` role="button")
+                            i.fas.fa-check-circle
+                    else
+                        th="Done"
+                        th
+                          a(class="btn btn-warning" href=`/undone/${todo[a]._id}` role="button")
+                            i.fas.fa-undo
+                    th
+                      a(class="btn btn-primary" style="align: left" href=`/${todo[a]._id}/detail` role="button")
+                        i.fas.fa-search-plus
+                      span  
+                      a(href= `/delete/${todo[a]._id}` ).btn.btn-danger.btn-sm
+                        i.fas.fa-trash-alt
